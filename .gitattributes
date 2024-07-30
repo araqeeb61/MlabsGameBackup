@@ -1,2 +1,0 @@
-Assets/GameAssets/*.obj filter=lfs diff=lfs merge=lfs -text
-Assets/GameAssets/*.fbx filter=lfs diff=lfs merge=lfs -text
