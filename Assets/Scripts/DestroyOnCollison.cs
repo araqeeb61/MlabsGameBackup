@@ -9,7 +9,7 @@ public class DestroyOnCollision : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // Destroy this game object after 2 seconds.
-            Destroy(gameObject, 2.0f);
+            Destroy(gameObject, 10.0f);
         }
     }
 }
