@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 //SceneManagement is Required at line#123
 public class PlayerJump : MonoBehaviour
@@ -17,21 +18,26 @@ public class PlayerJump : MonoBehaviour
     public GameObject  losePanel;
     public GameObject  winPanel;
     
-    public SliderEventHandler sliderHandler; // Reference to SliderEventHandler
+    public SliderEventHandler sliderHandler;
+    public TextMeshProUGUI Scoretext;
 
     private Rigidbody rb;
     private bool dragSoundController;
     private Vector2 dragStartPosition;
     private bool isDragging = false;
     private bool isColliding = false;
+    private  int ScoreCount=0;
 
     void Start()
 
-    {
+    {  
+        
+        Time.timeScale = 1.0f;
         winPanel.SetActive(false);
         losePanel.SetActive(false);
         rb = GetComponent<Rigidbody>();
         lineRenderer.positionCount = trajectoryResolution;
+        Scoretext.text="Score :"+ScoreCount.ToString();
 
         if (sliderHandler == null)
         {
@@ -133,12 +139,20 @@ public class PlayerJump : MonoBehaviour
         if (other.gameObject.tag == "Water"){
             losePanel.SetActive(true);
             winPanel.SetActive(false);
+           Time.timeScale = 0f;
         }
         else if (other.gameObject.tag == "Princess"){
             winPanel.SetActive(true);
             losePanel.SetActive(false);
         }
         
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Coin"){
+            ScoreCount +=10;
+            Scoretext.text="Score :"+ScoreCount.ToString();
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnCollisionExit(Collision other)
